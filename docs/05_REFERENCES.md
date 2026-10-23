@@ -27,7 +27,9 @@ Gemini Embedding 2 is the initial 2026 technology candidate. RAG, BM25, cosine s
 
 ## Academic sources
 
-The starter collection now uses current catalog entries for [ECE101](https://catalog.arizona.edu/courses/0432351), [ECE369A](https://catalog.arizona.edu/courses/0366021), [ECE372A](https://catalog.arizona.edu/courses/0367521), [ECE425](https://catalog.arizona.edu/courses/0435981), and [CSC120](https://catalog.arizona.edu/courses/0393701). Their public enrollment fields expose requirement IDs, so academic eligibility remains unknown. The collection stores paraphrased summaries, links, and description hashes.
+The starter collection uses current catalog entries for [ECE101](https://catalog.arizona.edu/courses/0432351), [ECE369A](https://catalog.arizona.edu/courses/0366021), [ECE372A](https://catalog.arizona.edu/courses/0367521), [ECE425](https://catalog.arizona.edu/courses/0435981), and [CSC120](https://catalog.arizona.edu/courses/0393701). Their public course enrollment fields expose requirement IDs. Four ECE rules remain unknown. The collection stores paraphrased summaries, links, and description hashes.
+
+The [current Computer Science program requirements](https://catalog.arizona.edu/programs/COSCBS/program-requirements-a1nCj), foundation section R1299/L40, provide a reviewed CSC120 condition. The app links this source and evaluates its alternatives separately. Department guidance lists different alternatives, so unusual substitutions still need advisor confirmation. This condition does not establish complete enrollment eligibility.
 
 The initial resources are [PyTorch Quickstart](https://docs.pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html) and [CS50 OpenCourseWare](https://cs50.harvard.edu/x/).
 

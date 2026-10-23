@@ -57,7 +57,7 @@ def test_empty_rule_rejected():
 
 def test_unreviewed_catalog_rules_do_not_pass(catalog):
     p=StudentProfile(standing="Senior",history_complete=True)
-    for course in [r for r in catalog.records if r.kind=="course"]:
+    for course in [r for r in catalog.records if r.kind=="course" and not r.rule_reviewed]:
         assert evaluate_course(course,p).status=="unknown"
 
 

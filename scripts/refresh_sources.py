@@ -22,6 +22,8 @@ def main():
     for source in catalog.sources:
         if not source.source_id.startswith("catalog:"):
             continue
+        if not urlparse(source.url).path.startswith("/courses/"):
+            continue  # Program guidance is reviewed separately from the course-page extractor.
         if urlparse(source.url).hostname != "catalog.arizona.edu":
             raise ValueError("Only official catalog URLs are accepted")
         request = Request(source.url, headers={"User-Agent":"ECE-P07-Advisor/0.1"})

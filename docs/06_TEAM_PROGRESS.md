@@ -4,11 +4,11 @@ Updated October 22, 2026, Arizona time.
 
 ## Current implementation
 
-The prototype includes the profile form, five real course summaries, two resources, keyword retrieval, academic-rule evaluation, profile export/import, a Gemini RAG adapter, evidence inspection, and an Adzuna adapter. Beginners see programming foundations before advanced learning goals. A student's background and completed courses can change that order.
+The refined prototype includes five real course summaries, two resources, a shorter profile form, a searchable course picker, three learning stages, completion actions, profile export/import, a Gemini RAG adapter, evidence inspection, and an Adzuna adapter. Still exploring shows both career directions. Course and resource cards explain the suggested learning connection.
 
 **Live RAG is not yet verified.** No Gemini key is configured here. The pipeline passes tests using controlled provider responses. Live Adzuna requests also need a credentialed check.
 
-All five current academic rules remain unknown because the catalog exposes internal requirement IDs. Course descriptions and credits were checked against official sources. Resolving those rules is separate work.
+Four ECE academic rules remain unknown because the course entries expose internal requirement IDs. One CSC120 condition is reviewed from the current catalog program requirements. Course descriptions and credits were checked against official sources. Remaining rules and supporting records need review.
 
 ## Milestones
 
@@ -26,11 +26,12 @@ All five current academic rules remain unknown because the catalog exposes inter
 ## Verification
 
 - Clean installation from pinned dependencies succeeded.
-- 54 automated tests passed, including five Streamlit interaction tests.
+- 80 automated tests passed, including 12 Streamlit interaction tests.
 - Streamlit started successfully and returned an `ok` health response and its root page.
 - The importer fetched and parsed all five official course entries.
 - All five keyword smoke cases passed, covering beginners, experienced students, changed goals, and completed coursework.
 - Provider behavior was tested with controlled responses, not live credentials.
+- Regression cases cover failed grades, blocked-course stages, stale results, imported fields, server-key visibility, completion actions, career choices, unsupported queries, and AI abstentions.
 
 See [prototype verification](07_PROTOTYPE_VERIFICATION.md) for commands, timing scope, and limitations.
 
@@ -38,7 +39,7 @@ See [prototype verification](07_PROTOTYPE_VERIFICATION.md) for commands, timing 
 
 1. Configure a Gemini key and verify the model IDs.
 2. Precompute the index and record a real generated answer with citations.
-3. Resolve and review the five enrollment requirement references.
+3. Resolve and review the four remaining ECE enrollment requirement references.
 4. Review the six sample papers and their tools/videos.
 5. Configure Adzuna and inspect actual opportunity results.
 6. Assign owners and prepare the midpoint report/demo.
@@ -66,3 +67,4 @@ Next task and owner:
 | Oct 22 | Keep opaque catalog requirements unknown until reviewed |
 | Oct 22 | Use portable profile files before hosted accounts |
 | Oct 22 | Use reported programming background and coursework when choosing foundations |
+| Oct 22 | Keep learning stages separate from academic eligibility and preserve state through profile edits |

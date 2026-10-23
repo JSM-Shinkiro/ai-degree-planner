@@ -98,7 +98,8 @@ Recommend only allowed_record_ids. Cite the exact chunk_id values in evidence.
 For each reason, distinguish source_fact from a suggested recommendation.
 Do not invent courses, URLs, requirements, jobs, salaries, or enrollment claims.
 Do not override rule_results. Unknown academic conditions remain unknown.
-Respect suggested_phases. A later learning goal is not an immediate next course.
+Respect suggested_phases: next, build, and later describe learning stages.
+Build and later goals are not immediate next courses. Stage is not enrollment eligibility.
 A team-authored career mapping is a suggested learning connection, not a degree rule.
 Do not write raw URLs. The application resolves source links from evidence IDs.
 If the question lacks supporting evidence, return insufficient_evidence with a

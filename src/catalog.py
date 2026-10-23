@@ -38,6 +38,10 @@ def build_evidence(catalog: Catalog) -> list[Evidence]:
                 text += f" Enrollment requirement reference: {record.requirement_reference}."
         if record.review_status == "team_mapping":
             text += "\nThis is a team-authored learning connection, not a university requirement."
+        if record.learning_note:
+            text += "\nTeam learning suggestion (not an academic requirement): " + record.learning_note
+        if record.first_activity:
+            text += "\nSuggested first activity: " + record.first_activity
         chunks.append(Evidence(
             chunk_id=record.record_id + ":overview",
             record_id=record.record_id,

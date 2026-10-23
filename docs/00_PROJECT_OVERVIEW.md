@@ -53,4 +53,4 @@ The final release keeps job search and saved progress. Graduate advising, a comp
 - **Mid-project:** November 1, 2026, at 11:59 PM MST.
 - **Final presentation and submission:** December 11.
 
-The first local prototype is implemented. The next step is to verify live model access, resolve catalog requirements, and record the first real RAG demonstration. See [team progress](06_TEAM_PROGRESS.md) for status and the repository README for launch instructions.
+The local prototype and the Astra refinement pass are implemented. The next step is to verify live model access, resolve the remaining catalog requirements, and record the first real RAG demonstration. See [team progress](06_TEAM_PROGRESS.md) for status, [refinement notes](08_REFINEMENT_NOTES.md) for changes, and the repository README for launch instructions.

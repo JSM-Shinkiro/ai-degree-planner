@@ -62,6 +62,8 @@ class Completion(StrictModel):
         if value is None or not value.strip():
             return None
         value = value.strip().upper()
+        if value in {"E", "F"}:
+            raise ValueError("Failed attempts cannot be listed as completed coursework. Remove the course or enter a passing grade.")
         if value not in {"A", "B", "C", "D", "E", "F", "P", "S", "CR", "A+", "A-", "B+", "B-", "C+", "C-", "D+", "D-"}:
             raise ValueError("Unsupported grade")
         return value
@@ -74,6 +76,7 @@ class StudentProfile(StrictModel):
     career_id: Literal["ai_ml", "embedded", "exploring"] = "ai_ml"
     interests: str = Field(default="", max_length=1500)
     experience: str = Field(default="", max_length=2000)
+    question: str = Field(default="", max_length=1200)
     completed: list[Completion] = Field(default_factory=list, max_length=200)
     history_complete: bool = False
     programming_background: Literal["new", "some", "experienced"] = "new"
@@ -122,6 +125,9 @@ class Record(StrictModel):
     review_status: Literal["source_summary_reviewed", "team_mapping", "synthetic_fixture"] = "source_summary_reviewed"
     requirement_reference: str | None = None
     study_stage: Literal["foundation", "intermediate", "advanced"] = "intermediate"
+    career_ids: list[Literal["ai_ml", "embedded"]] = Field(default_factory=list)
+    learning_note: str = Field(default="", max_length=1200)
+    first_activity: str = Field(default="", max_length=600)
 
     @field_validator("code")
     @classmethod
@@ -180,6 +186,8 @@ class GeneratedAnswer(StrictModel):
     def coherent_answer(self):
         if self.status == "answered" and not self.recommendations:
             raise ValueError("An answered response needs recommendations")
+        if self.status == "insufficient_evidence" and (self.recommendations or not self.clarification):
+            raise ValueError("Insufficient evidence needs a clarification and no recommendations")
         return self
 
 
@@ -190,8 +198,8 @@ class GenerationContext(StrictModel):
     allowed_record_ids: list[str]
     evidence: list[Evidence]
     rule_results: dict[str, RuleEvaluation]
-    suggested_phases: dict[str, Literal["next", "later"]] = Field(default_factory=dict)
-    prompt_version: str = "p07-v1"
+    suggested_phases: dict[str, Literal["next", "build", "later"]] = Field(default_factory=dict)
+    prompt_version: str = "p07-v2"
 
     def to_prompt(self) -> str:
         return self.model_dump_json(indent=2)

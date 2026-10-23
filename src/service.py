@@ -12,6 +12,7 @@ import numpy as np
 from .catalog import build_evidence, code_lookup, corpus_hash
 from .models import Catalog, GeneratedAnswer, GenerationContext, StudentProfile
 from .providers import EmbeddingCache, ProviderError
+from .planning import coverage_message, learning_phase, needs_programming_foundations
 from .retrieval import Hit, Retriever
 from .rules import dependency_codes, evaluate_course
 
@@ -49,18 +50,14 @@ class AdvisorResult:
     answer: GeneratedAnswer | None = None
     retrieval_mode: str = "keyword"
     generation_complete: bool = False
+    generation_status: str = "not_requested"
+    coverage_notice: str | None = None
     issues: list[str] = field(default_factory=list)
     timings: dict[str, float] = field(default_factory=dict)
     vectors: np.ndarray | None = None
     query_vector: np.ndarray | None = None
     cache_state: str = "not_used"
     trace: dict = field(default_factory=dict)
-
-
-def needs_programming_foundations(profile: StudentProfile):
-    known_basics = {"ECE101", "ECE175", "CSC110", "CSC120", "ISTA130"}
-    completed = {course.course_code for course in profile.completed}
-    return profile.programming_background == "new" and not (completed & known_basics)
 
 
 def build_query(catalog: Catalog, profile: StudentProfile, question: str):
@@ -75,10 +72,12 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
                   hits: list[Hit], max_chunks=8, max_characters=16000):
     records = {r.record_id: r for r in catalog.records}
     chunks = {e.record_id: e for e in build_evidence(catalog)}
-    completed = {c.course_code for c in profile.completed}
+    completed = {c.course_code for c in profile.completed if c.grade not in {"E", "F"}}
     courses, resources = [], []
     for hit in hits:
         record = records[hit.record_id]
+        if record.career_ids and profile.career_id != "exploring" and profile.career_id not in record.career_ids:
+            continue
         if record.kind == "course" and record.code not in completed and record.record_id not in courses:
             courses.append(record.record_id)
         elif record.kind == "resource" and record.record_id not in resources:
@@ -86,9 +85,21 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
     beginner = needs_programming_foundations(profile)
     if beginner:
         foundations=[rid for rid in courses if records[rid].study_stage=="foundation"]
-        goals=[rid for rid in courses if records[rid].study_stage!="foundation"]
-        courses=(foundations[:2]+goals[:1])[:3]
+        bridges=[rid for rid in courses if records[rid].study_stage=="intermediate"]
+        goals=[rid for rid in courses if records[rid].study_stage=="advanced"]
+        courses=(foundations[:1]+bridges[:1]+goals[:1])[:3]
         resources=sorted(resources,key=lambda rid:records[rid].study_stage!="foundation")
+    if profile.career_id == "exploring":
+        # Show both directions instead of allowing one query to displace the other.
+        foundations=[rid for rid in courses if records[rid].study_stage=="foundation"]
+        goals=[]
+        candidates=[h.record_id for h in hits if records[h.record_id].kind=="course"
+                    and records[h.record_id].code not in completed]
+        for career in ["ai_ml", "embedded"]:
+            matches=[rid for rid in candidates if records[rid].study_stage=="advanced"
+                     and career in records[rid].career_ids]
+            goals.extend(matches[:1])
+        courses=list(dict.fromkeys(foundations[:1]+goals+courses))[:3]
     selected = courses[:3] + resources[:2]
     career_ids = [
         r.record_id for r in catalog.records
@@ -110,7 +121,8 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
                 if dependency and dependency.record_id not in seen:
                     dependency_ids.append(dependency.record_id)
                     queue.append(dependency)
-    # Complete a course's supporting evidence or mark it unknown if the budget cannot hold it.
+    # A reviewed rule is contained in the course chunk. Additional descriptions
+    # help exploration, but an absent alternative must not invalidate a satisfied OR.
     ordered = list(dict.fromkeys(selected + dependency_ids + career_ids))
     evidence, consumed = [], 0
     for record_id in ordered:
@@ -129,21 +141,34 @@ def build_context(catalog: Catalog, profile: StudentProfile, question: str, quer
             if record.rule_reviewed:
                 absent = [c for c in dependency_codes(record.rule) if c not in lookup]
                 omitted = [c for c in dependency_codes(record.rule) if c in lookup and lookup[c].record_id not in included]
-                if absent or omitted:
-                    evaluation.status = "unknown"
+                if (absent or omitted) and evaluation.status == "unknown":
                     evaluation.reasons.append("Some supporting requirement records are outside this reviewed context.")
             rule_results[record_id] = evaluation
     return GenerationContext(
         profile=profile, question=question, query=query,
         allowed_record_ids=allowed, evidence=evidence, rule_results=rule_results,
-        suggested_phases={rid:("later" if beginner and records[rid].study_stage!="foundation" else "next")
-                          for rid in allowed if records[rid].kind=="course"},
+        suggested_phases={rid:learning_phase(records[rid], profile, rule_results.get(rid)) for rid in allowed},
     )
 
 
 def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
               provider=None, method="hybrid", cache_dir=Path(".cache/embeddings")) -> AdvisorResult:
     started = time.perf_counter()
+    question = question or profile.question
+    if len(question) > 1200:
+        raise ValueError("Keep the learning question within 1,200 characters")
+    notice = coverage_message(catalog, profile, question)
+    if notice:
+        context = GenerationContext(profile=profile, question=question, query=question,
+                                    allowed_record_ids=[], evidence=[], rule_results={})
+        result = AdvisorResult(context=context, hits=[], coverage_notice=notice,
+                               generation_status="insufficient_evidence")
+        result.timings["total"] = time.perf_counter() - started
+        result.trace = {"data_version":catalog.version, "prompt_version":context.prompt_version,
+                        "generation_status":"insufficient_evidence", "generation_complete":False,
+                        "coverage_guard":"no_vocabulary_match", "model_calls":0,
+                        "context_chunk_ids":[], "allowed_record_ids":[], "timings_seconds":result.timings}
+        return result
     chunks = build_evidence(catalog)
     query = build_query(catalog, profile, question)
     vectors, query_vector, manifest = None, None, {}
@@ -173,11 +198,14 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
         before = time.perf_counter()
         try:
             result.answer = validate_answer(provider.generate(context), context)
-            result.generation_complete = True
+            result.generation_status = result.answer.status
+            result.generation_complete = result.answer.status == "answered"
         except (ProviderError, CitationError, ValueError):
+            result.generation_status = "failed"
             result.issues.append("The AI explanation was unavailable or failed reference checks. Showing source information.")
         timings["generation"] = time.perf_counter() - before
     elif provider:
+        result.generation_status = "insufficient_evidence"
         result.issues.append("There is not enough reviewed evidence for this request.")
     timings["total"] = time.perf_counter() - started
     result.trace = {
@@ -192,7 +220,8 @@ def recommend(catalog: Catalog, profile: StudentProfile, question: str = "",
         "context_chunk_ids": [e.chunk_id for e in context.evidence],
         "allowed_record_ids": context.allowed_record_ids,
         "generation_complete": result.generation_complete,
-        "reference_checks_passed": result.generation_complete,
+        "generation_status": result.generation_status,
+        "reference_checks_passed": True if result.answer else (False if result.generation_status=="failed" else None),
         "timings_seconds": timings,
     }
     return result

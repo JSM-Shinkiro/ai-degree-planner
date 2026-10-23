@@ -17,11 +17,23 @@ python -m streamlit run app.py
 
 On Windows PowerShell, activate with `.\.venv\Scripts\Activate.ps1` instead.
 
-The app starts in **source exploration** mode without API keys. Choose a career direction, add completed courses, and select **Update my roadmap**. Download and restore a JSON profile to carry progress between sessions.
+The app starts in **preview mode** without API keys. Choose a career direction, add completed courses with the searchable picker, and select **Update my roadmap**. The plan groups suggestions into **Start here**, **Build toward**, and **Later goals**. Restore/download JSON files under **Saved profile** to carry progress between sessions.
+
+On Windows, the tested Python version is 3.12. You can skip activation:
+
+```powershell
+py -3.12 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+.\.venv\Scripts\python.exe -m streamlit run app.py
+```
+
+If Python 3.12 is missing, install it first with `winget install --exact --id Python.Python.3.12 --source winget`, then reopen PowerShell. To update an existing clone, stop the app with Ctrl+C, run `git pull`, and launch it again.
 
 ## Enable live RAG
 
-Copy `.env.example` to `.env` and set `GEMINI_API_KEY`. The example uses `gemini-embedding-2` and `gemini-3.8-flash`, subject to account availability. Model IDs are configurable. The sidebar also accepts a session-only key for local testing.
+Copy `.env.example` to `.env` and set `GEMINI_API_KEY`. The example uses `gemini-embedding-2` and `gemini-3.8-flash`, subject to account availability. Model IDs are configurable through the environment. Server keys are never used as widget defaults.
+
+For local development only, `ECE_DEVELOPMENT_MODE=true` enables editable model IDs and an empty session-only key field when no server key exists. Keep this off for a shared deployment.
 
 Precompute the index with:
 
@@ -31,20 +43,30 @@ python scripts/build_index.py
 
 Enable **Generate AI explanations**, then update the roadmap. Retrieved evidence is passed to the generator. Recommendation IDs and citations are validated before rendering.
 
+To compare real keyword, semantic, and hybrid RAG requests and save their answers/timings:
+
+```bash
+python scripts/verify_live.py
+```
+
+Add `--jobs` to also check the configured Adzuna connection. These opt-in checks use real provider quota. Inspect the saved answers against their sources before using them in the report.
+
 Source exploration is retrieval-only. It does not count as a completed live RAG demonstration.
 
 ## Current features
 
 - Dark dashboard and student profile.
-- Programming foundations first for beginners, with later learning goals.
+- Three learning stages, a bridge course for each direction, and explanations of suggested learning connections.
 - Five source-linked courses and two online resources.
 - Keyword, semantic, and hybrid retrieval.
-- Independent prerequisite evaluation.
+- Independent prerequisite evaluation with blocked courses kept as later goals.
 - Structured Gemini generation and citation checks.
 - Evidence inspector and ranking chart.
 - PCA projection and cosine drill-down when embeddings are available.
 - Versioned public-record embedding cache.
-- Profile export/import.
+- Profile export/import, searchable coursework entry, and Mark completed actions.
+- Direction comparison for students who are still exploring.
+- Coverage clarification for clear requests outside the starter collection.
 - On-demand Adzuna search adapter with a short session cache.
 
 Job search requires `ADZUNA_APP_ID` and `ADZUNA_APP_KEY`. No listings are fabricated when the provider is unavailable.
@@ -53,7 +75,9 @@ Job search requires `ADZUNA_APP_ID` and `ADZUNA_APP_KEY`. No listings are fabric
 
 The starter collection covers ECE101, ECE369A, ECE372A, ECE425, and CSC120 from the current 2026–2027 catalog. Summaries are paraphrased and linked to official entries.
 
-The public catalog returns internal enrollment requirement IDs. Their rules remain **unknown** until resolved and reviewed. The rule engine is tested with synthetic conditions, but this prototype does not establish enrollment eligibility.
+The public course entries return internal enrollment requirement IDs. Four ECE rules remain **unknown**. One CSC120 condition is reviewed against the current Computer Science program requirements, with its source linked in the app. Recorded prerequisite satisfaction does not establish complete enrollment eligibility.
+
+Failed grades cannot be entered as successful completions. Missing prerequisite grades remain unknown. Learning-stage annotations are team suggestions and do not place courses into semesters.
 
 ```bash
 python scripts/refresh_sources.py
@@ -70,7 +94,7 @@ python scripts/evaluate.py --runs 20
 
 Tests cover backend behavior and Streamlit interactions. Controlled providers test RAG integration without model requests. Live model and job calls need separate credentialed checks.
 
-The first clean installation passed 54 tests. See [prototype verification](docs/07_PROTOTYPE_VERIFICATION.md) for the checks performed and remaining limits.
+The refinement includes regression tests for the review findings. See [prototype verification](docs/07_PROTOTYPE_VERIFICATION.md) and [refinement notes](docs/08_REFINEMENT_NOTES.md) for checks and remaining limits.
 
 The evaluation script is a keyword-only smoke check, not a completed research benchmark.
 

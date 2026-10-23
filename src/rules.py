@@ -46,6 +46,8 @@ def evaluate_rule(rule: Rule, profile: StudentProfile) -> RuleEvaluation:
     if completion is None:
         status = "unsatisfied" if profile.history_complete else "unknown"
         return result(status, f"{code} is not in the supplied completion history.", rule)
+    if completion.grade in {"E", "F"}:
+        return result("unsatisfied", f"{code} has a failed attempt, not a successful completion.", rule)
     if rule.minimum_grade:
         actual, minimum = GRADES.get(completion.grade), GRADES.get(rule.minimum_grade.upper())
         if actual is None or minimum is None:

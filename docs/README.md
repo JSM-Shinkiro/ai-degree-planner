@@ -12,5 +12,6 @@ Team P07's ECE 425/525 project.
 | [References](05_REFERENCES.md) | Course and technical sources |
 | [Team progress](06_TEAM_PROGRESS.md) | Implemented work and open tasks |
 | [Prototype verification](07_PROTOTYPE_VERIFICATION.md) | Checks performed for the first implementation |
+| [Refinement notes](08_REFINEMENT_NOTES.md) | Review findings, implemented changes, and remaining live checks |
 
 The repository holds current code and documentation. Drive contains reference and submission copies.
