@@ -18,21 +18,21 @@ Build one complete RAG interaction first, then expand coverage and the student w
 ## First sprint: M0–M1
 
 - [x] Establish the repository and local Python environment.
-- [ ] Verify one embedding request and one generation request.
+- [x] Verify one embedding request and one generation request.
 - [ ] Read the six instructor sample papers and inspect their tools/videos.
 - [ ] Prepare five real course records and the prerequisites needed for the example.
-- [ ] Create evidence chunks, vectors, and an index manifest.
-- [ ] Build a small profile form and semantic retrieval.
+- [x] Create evidence chunks, vectors, and an index manifest.
+- [x] Build a small profile form and semantic retrieval.
 - [x] Implement prerequisite evaluation and context assembly. Resolve actual course conditions separately.
-- [ ] Generate an explanation and validate its source references.
+- [x] Generate an explanation and validate its source references.
 - [ ] Show recommendations, citations, and the exact evidence used.
-- [x] Test a changed career goal and an unsupported-information case using controlled providers.
-- [ ] Record the configuration and actual response time.
+- [x] Test a changed career goal and an unsupported-information case using controlled providers and live checks.
+- [x] Record the configuration and actual response time.
 - [ ] Check job-provider access early, even though its full interface comes later.
 
 If credentials are pending, work on records, academic rules, local tests, and the interface. Keep live integration checks open until they run successfully.
 
-The first implementation is in place. Five source summaries, the profile UI, retrieval modes, citation checks, portable profiles, plots, and opportunity search adapters are implemented. The remaining unchecked items include their live provider checks and academic-rule review. See [team progress](06_TEAM_PROGRESS.md) for current status.
+The first implementation is in place. Five source summaries, the profile UI, retrieval modes, citation checks, portable profiles, plots, and opportunity search adapters are implemented. Six live Gemini checks passed on October 23. The remaining unchecked items include Adzuna access, academic-rule review, and the browser demo. See [team progress](06_TEAM_PROGRESS.md) and [live verification](11_GEMINI_LIVE_VERIFICATION.md).
 
 ## Midpoint scope
 

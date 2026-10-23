@@ -15,5 +15,6 @@ Team P07's ECE 425/525 project.
 | [Refinement notes](08_REFINEMENT_NOTES.md) | Review findings, implemented changes, and remaining live checks |
 | [Saved catalog sources](09_CATALOG_SOURCES.md) | Catalog links, course exports, program requirements, sample plans, and screenshots |
 | [ECE plan implementation notes](10_ECE_PLAN_IMPLEMENTATION_NOTES.md) | Reviewed sample-plan findings and a manageable ECE planning template |
+| [Gemini live verification](11_GEMINI_LIVE_VERIFICATION.md) | Working models, six live checks, measured timings, and answer-review findings |
 
 The repository holds current code and documentation. Drive contains reference and submission copies.

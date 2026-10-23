@@ -5,7 +5,7 @@ from .service import recommend
 
 
 def run_advisor(catalog, profile, *, api_key="", use_ai=False, method="hybrid",
-                embedding_model="gemini-embedding-2", generation_model="gemini-3.8-flash",
+                embedding_model="gemini-embedding-2", generation_model="gemini-3.5-flash-lite",
                 dimensions=768, cache_dir=Path(".cache/embeddings"), provider_factory=None):
     provider, issue = None, None
     if use_ai and api_key:

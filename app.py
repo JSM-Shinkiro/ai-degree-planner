@@ -134,7 +134,7 @@ with st.sidebar:
             st.caption("AI is configured. A submitted profile and selected evidence are sent to Gemini when enabled.")
         use_ai = st.checkbox("Generate AI explanations",value=False,disabled=not bool(api_key),key="use_ai")
         method = st.selectbox("Ranking method",["hybrid","semantic","keyword"],disabled=not (use_ai and api_key),key="ranking_method")
-        generation_model = os.getenv("GENERATION_MODEL","gemini-3.8-flash")
+        generation_model = os.getenv("GENERATION_MODEL","gemini-3.5-flash-lite")
         embedding_model = os.getenv("EMBEDDING_MODEL","gemini-embedding-2")
         if development:
             generation_model = st.text_input("Generation model",value=generation_model)

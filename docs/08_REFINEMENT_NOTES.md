@@ -39,4 +39,4 @@ Browser screenshot review remains pending because the Chromium download in this 
 - Source publication dates where available, broader resource refresh coverage, and a returning-student pilot.
 - Instructor sample-paper reviews, report screenshots, and narrated demonstration.
 
-No credentials are configured in the implementation environment, so the live checks were not reported as passing. Run `python scripts/verify_live.py` after configuring a local key. Use `--jobs` once Adzuna is configured. Its saved answers still require manual comparison with their cited sources.
+At the October 22 refinement checkpoint, live checks were pending credentials. Live Gemini checks subsequently passed on October 23; see [live verification](11_GEMINI_LIVE_VERIFICATION.md). Run `python scripts/verify_live.py` after configuring a local key. Use `--jobs` once Adzuna is configured. Saved answers still require manual comparison with their cited sources.

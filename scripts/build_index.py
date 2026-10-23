@@ -17,7 +17,7 @@ def main():
         raise SystemExit("Set GEMINI_API_KEY in .env or your environment before building the index.")
     provider = GeminiProvider(
         key, embedding_model=os.getenv("EMBEDDING_MODEL","gemini-embedding-2"),
-        generation_model=os.getenv("GENERATION_MODEL","gemini-3.8-flash"),
+        generation_model=os.getenv("GENERATION_MODEL","gemini-3.5-flash-lite"),
         dimensions=int(os.getenv("EMBEDDING_DIMENSION","768")),
     )
     try:

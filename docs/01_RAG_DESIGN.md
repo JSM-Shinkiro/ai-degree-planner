@@ -63,7 +63,7 @@ Start with semantic retrieval. Add BM25 and hybrid ranking after the first full 
 
 These are starting settings to evaluate.
 
-The initial implementation includes all three retrieval methods. Provider access and live answer quality remain to be verified. The context limit applies to evidence text, while profile lengths and generated output are bounded separately.
+The initial implementation includes all three retrieval methods. Live keyword, semantic, and hybrid RAG passed integration checks on October 23 using `gemini-embedding-2` and `gemini-3.5-flash-lite`. See [live verification](11_GEMINI_LIVE_VERIFICATION.md). Broader answer-quality evaluation remains open. The context limit applies to evidence text, while profile lengths and generated output are bounded separately.
 
 Normalize vectors and use cosine similarity. For hybrid retrieval, combine ranks rather than adding raw BM25 and cosine values. RRF adds 1 / (60 + rank) for each list containing a chunk. Ranks start at one.
 

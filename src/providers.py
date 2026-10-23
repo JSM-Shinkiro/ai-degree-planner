@@ -22,7 +22,7 @@ class ProviderError(RuntimeError):
 
 class GeminiProvider:
     def __init__(self, api_key, embedding_model="gemini-embedding-2",
-                 generation_model="gemini-3.8-flash", dimensions=768, client=None):
+                 generation_model="gemini-3.5-flash-lite", dimensions=768, client=None):
         if not api_key:
             raise ProviderError("A Gemini API key is required for live AI.")
         self.embedding_model = embedding_model

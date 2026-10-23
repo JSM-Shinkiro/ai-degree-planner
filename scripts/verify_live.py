@@ -26,7 +26,7 @@ def main():
     if not key:
         raise SystemExit("Set GEMINI_API_KEY locally first. No model requests were made.")
     provider = GeminiProvider(key, embedding_model=os.getenv("EMBEDDING_MODEL", "gemini-embedding-2"),
-        generation_model=os.getenv("GENERATION_MODEL", "gemini-3.8-flash"),
+        generation_model=os.getenv("GENERATION_MODEL", "gemini-3.5-flash-lite"),
         dimensions=int(os.getenv("EMBEDDING_DIMENSION", "768")))
     catalog, checks = load_catalog(), []
     profile = StudentProfile(career_id=args.career, interests="AI and hardware integration")

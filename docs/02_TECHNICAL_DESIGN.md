@@ -7,7 +7,7 @@
 | Interface | Python, Streamlit, Plotly |
 | Semantic retrieval | Gemini Embedding 2 adapter, NumPy cosine ranking |
 | Keyword and hybrid retrieval | BM25, Reciprocal Rank Fusion |
-| Explanations | Configurable Gemini adapter, pending live access test |
+| Explanations | Gemini adapter, default `gemini-3.5-flash-lite`; live starter checks passed October 23 |
 | Records and validation | JSON, Pydantic, explicit citation checks |
 | Academic rules | Python predicates and three-state evaluation |
 | Profiles | Export/import first, then authenticated durable storage |

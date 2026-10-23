@@ -1,6 +1,6 @@
 # Prototype Verification
 
-Checked October 22, 2026, Arizona time.
+Updated October 23, 2026, Arizona time. Original prototype checks were performed October 22; automated tests and the live Gemini checks below were run October 23.
 
 ## Checks performed
 
@@ -11,7 +11,7 @@ Checked October 22, 2026, Arizona time.
 | Server startup | Health endpoint returned `ok`. Root page returned successfully |
 | Official source importer | Fetched and parsed all five starter course entries |
 | Keyword smoke evaluation | Five cases passed, each repeated 20 times |
-| Real embedding/generation requests | Not run. No Gemini key configured |
+| Real embedding/generation requests | Six live checks passed October 23 using `gemini-embedding-2` and `gemini-3.5-flash-lite`; see [live verification](11_GEMINI_LIVE_VERIFICATION.md) |
 | Real job request | Not run. No Adzuna credentials configured |
 | Browser screenshot review | Pending. Chromium download failed in this environment |
 
@@ -54,8 +54,8 @@ Record live measurements before using them in the report. A cold index build emb
 - The required six sample-paper reviews, held-out evaluation, and student pilot remain open.
 - The vocabulary coverage guard catches clear nonmatches. It does not replace semantic relevance or answer-support evaluation.
 
-The opt-in `python scripts/verify_live.py` command saves real answers and traces for keyword, semantic, and hybrid retrieval after a key is configured. Add `--jobs` for Adzuna. No live checks have been reported as completed here.
+The opt-in `python scripts/verify_live.py` command saves real answers and traces for keyword, semantic, and hybrid retrieval after a key is configured. Add `--jobs` for Adzuna. Live Gemini checks are now recorded in [the October 23 report](11_GEMINI_LIVE_VERIFICATION.md); Adzuna is still pending. The live checks used bundled course evidence and do not verify automatic academic-source retrieval.
 
 ## Next evidence to collect
 
-Save a real RAG trace, provider/model configuration, reviewed rule example, live job result, browser screenshots, and the measured latency table. Use those artifacts for the midpoint report and narrated demonstration.
+Real RAG traces, provider/model configuration, and a small latency table are saved. Collect a live job result and browser screenshots, resolve the remaining rules, and run the broader answer-quality evaluation for the midpoint report and narrated demonstration.

@@ -31,7 +31,9 @@ If Python 3.12 is missing, install it first with `winget install --exact --id Py
 
 ## Enable live RAG
 
-Copy `.env.example` to `.env` and set `GEMINI_API_KEY`. The example uses `gemini-embedding-2` and `gemini-3.8-flash`, subject to account availability. Model IDs are configurable through the environment. Server keys are never used as widget defaults.
+Copy `.env.example` to `.env` and set `GEMINI_API_KEY`. The example uses `gemini-embedding-2` and `gemini-3.5-flash-lite`, subject to account availability. Model IDs are configurable through the environment. Server keys are never used as widget defaults.
+
+These models passed live checks on October 23. The tested `gemini-flash-latest` and `gemini-3.8-flash` generation requests encountered high-demand errors, so the default generator uses the working lighter model. See [live verification](docs/11_GEMINI_LIVE_VERIFICATION.md) for results and limitations. Keys are supplied locally and are not included in the repository.
 
 For local development only, `ECE_DEVELOPMENT_MODE=true` enables editable model IDs and an empty session-only key field when no server key exists. Keep this off for a shared deployment.
 
@@ -94,7 +96,7 @@ python -m pytest -q
 python scripts/evaluate.py --runs 20
 ```
 
-Tests cover backend behavior and Streamlit interactions. Controlled providers test RAG integration without model requests. Live model and job calls need separate credentialed checks.
+Tests cover backend behavior and Streamlit interactions. Controlled providers test RAG integration without model requests. Six additional live Gemini checks passed on October 23; live Adzuna checks remain pending.
 
 The refinement includes regression tests for the review findings. See [prototype verification](docs/07_PROTOTYPE_VERIFICATION.md) and [refinement notes](docs/08_REFINEMENT_NOTES.md) for checks and remaining limits.
 
