@@ -27,3 +27,6 @@ The first release focuses on **AI/ML and embedded systems**. Development starts 
 
 Planning is complete enough to begin development. Application implementation and setup instructions are pending.
 
+## Documentation
+
+Project design notes and the implementation roadmap will be maintained in [docs/](docs/README.md).
