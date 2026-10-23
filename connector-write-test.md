@@ -1,5 +1,7 @@
 # GitHub Connector Write Test
 
-Status: Created successfully.
+Status: Created and modified successfully.
 
-This file tests GitHub file creation and read access for the ECE 525 project.
+This file verifies GitHub file creation, read access, and file updates for the ECE 525 project.
+
+Verification: The connector updated this existing file using its current blob SHA.
