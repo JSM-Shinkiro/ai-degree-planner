@@ -25,11 +25,13 @@ The first working version needs real retrieval, a real generation call using the
 
 Resolve the student's program, catalog edition, and requested topic before fetching. Start with a small configured set of official sources. Discover linked course entries and sample plans through supported public pages, exports, or documented APIs where available. Source access and parsing must be verified for each connector. Do not assume a search result or page footer contains the requested information.
 
-Fetch missing or expired material, extract the relevant fields and passages, and validate source identity and edition. Build evidence chunks and an in-memory index for the bounded candidate set. Cache source content and embeddings to limit repeated requests. RAG requires retrievable evidence during the request, not a permanent vector database.
+When a student submits a roadmap update or opportunity search, aim to check the relevant sources at that time. Revalidate cached content when the source supports it, otherwise fetch the required material within provider limits. Ordinary interface rerenders should not trigger repeated requests. Extract the relevant fields and passages, validate source identity and edition, and build evidence chunks and an in-memory index for the bounded candidate set. Reuse unchanged content and embeddings. RAG requires retrievable evidence during the request, not a permanent vector database.
+
+If a persistent content database is introduced, it must also refresh automatically on a configurable schedule. Background updates supplement checks during use. They do not replace them. Record the last successful source check separately from the last content download, and update dependent evidence when content changes. A source that has not changed does not need to be embedded again.
 
 Keep the source URL, page or section, retrieval time, content hash, and validation state with each chunk. A changed hash invalidates dependent embeddings and answers. Current retrieval must respect a student's catalog edition rather than silently switching them to the newest degree requirements.
 
-If retrieval fails, label any cached evidence with its last successful retrieval time or report that the information is unavailable. Do not present a saved development file as newly retrieved information. Unresolved academic conditions stay unknown even when the descriptive page was fetched successfully.
+If retrieval or revalidation fails, label any cached evidence with its last successful source check or report that the information is unavailable. Do not present a failed refresh or a saved development file as current verification. Unresolved academic conditions stay unknown even when the descriptive page was fetched successfully.
 
 ## Preparing the active collection
 

@@ -99,7 +99,11 @@ Use configuration for providers, model IDs, dimensions, retrieval method, candid
 
 Cache index data by corpus and model configuration. Request caches include the relevant profile, query, prompt, model, and data versions. Updating completed coursework invalidates dependent recommendations.
 
-For runtime source retrieval, key fetched content by canonical URL and catalog edition, and keep retrieval time, hash, validation state, and a source-specific expiry. Refresh missing or expired entries and rebuild affected evidence when the content changes. Provide an explicit refresh action and label stale results if the source is unavailable. Choose and measure cache lifetimes during connector testing.
+For runtime source retrieval, key fetched content by canonical URL and catalog edition. Track the last successful source check, last content download, content hash, validation state, and source-specific expiry. Aim to revalidate the relevant sources when a student submits a roadmap update or job search, respecting provider limits. Use conditional requests when supported and reuse unchanged content and embeddings. A widget rerender should not trigger a new fetch.
+
+Any persistent content database must have an automatic refresh job with configurable intervals, bounded retries, and a recorded outcome. Use source-specific schedules, with faster checks for job listings than for degree requirements. Refresh changed records and their dependent chunks, embeddings, and answers together. Preserve catalog editions and source versions needed by existing citations. This background job supplements freshness checks during use.
+
+Provide an explicit refresh action as well. If a source cannot be checked, identify the last successful check and label cached results rather than claiming they are current. Choose and measure refresh intervals during connector testing. Scheduled source updates and on-use revalidation are planned application features, not active jobs in the current prototype.
 
 Session State supports the current interaction. Profile export/import can preserve progress without a server database. Account-based return visits would need separate durable profile storage. Choose that hosting and sign-in path after the local baseline works. Profile storage does not require a permanent course database.
 

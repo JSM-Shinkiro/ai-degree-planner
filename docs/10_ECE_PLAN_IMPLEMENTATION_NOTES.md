@@ -10,6 +10,8 @@ All saved PDFs, CSV exports, and screenshots are development references. The tar
 
 Fetch the appropriate program plan and course entries on demand, respecting catalog year and delivery mode. Reuse a temporary cache and build the RAG index in memory. Show source links and retrieval dates, refresh expired information, and make source failures visible. Stored student progress is a separate concern. Automatic runtime source retrieval is still pending in the current prototype.
 
+Prefer checking the relevant sources when a student submits a roadmap update or job search. If a content database becomes useful, it must refresh automatically on a configurable schedule as well. Background updates supplement checks during use. Reuse unchanged evidence and embeddings, record the last successful source check, and clearly label saved information when a live check fails. These freshness features remain planned work.
+
 ## Start with one ECE catalog year
 
 Use the supplied **2026–27 B.S. in Electrical and Computer Engineering sample plan** to develop and verify the first automatic plan parser. It has a shared foundation on page 1, an Electrical option on page 2, and a Computer option on page 3. The advised sequence is dated January 2026. The deployed app should obtain the applicable plan from its official source.

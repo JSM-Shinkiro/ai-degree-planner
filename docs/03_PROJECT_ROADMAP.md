@@ -12,7 +12,7 @@ Build one complete RAG interaction first, then expand coverage and the student w
 | M3 | Oct 29–Nov 1 | Measurements, report, screenshots, narrated demo, clean setup | Mid-project package is ready |
 | M4 | Nov 2–8 | Instructor feedback, rule coverage, hosted pilot, saved profiles | A returning student reloads and updates the correct profile |
 | M5 | Nov 9–15 | Live job search, filters, links, dates, empty/error states | Available Opportunities returns actual provider listings |
-| M6 | Nov 16–22 | Automatic official-source retrieval, complementary resources, change tracking | The app fetches ECE evidence without uploaded reference files, tracks freshness, and handles source failures |
+| M6 | Nov 16–22 | Automatic official-source retrieval, complementary resources, change tracking | Submitted requests check relevant sources. Any content database refreshes automatically. Source failures and freshness are visible |
 | M7 | Nov 23–Dec 11 | Evaluation, student feedback, fixes, final presentation | Core workflow is tested and final deliverables are ready |
 
 ## First sprint: M0–M1
@@ -48,7 +48,7 @@ Each member submits P07_MidProject_FullName.zip with a 3–4 page technical repo
 
 The final workflow includes saved progress, two reviewed career directions, complementary resources, actual on-demand opportunities, and automatic academic-source retrieval. Start with one ECE source connector and the selected catalog edition. Saved exports and plans are development references, not the deployed app's required catalog. Use a temporary evidence cache and an in-memory index before adding a database.
 
-After the first live RAG interaction, verify one runtime source-fetch path early. Complete discovery, freshness handling, and wider ECE coverage in M6. Check that clearing the cache allows the app to retrieve the evidence again without manually uploading files, and that a failed refresh produces a dated cached result or an explicit unavailable state.
+After the first live RAG interaction, verify one runtime source-fetch path early. Complete discovery, freshness handling, and wider ECE coverage in M6. Check that clearing the cache allows the app to retrieve the evidence again without manually uploading files, and that a failed refresh produces a dated cached result or an explicit unavailable state. Verify that a new submitted request checks relevant sources and reuses unchanged evidence. If a content database is added, also verify its scheduled refresh without manual intervention.
 
 Use Nov 23–29 for the held-out evaluation and a small student pilot. Use Nov 30–Dec 6 for fixes and deployment stability, with a feature freeze on Dec 4. Reserve Dec 7–11 for presentation, documentation, and reproducibility checks.
 

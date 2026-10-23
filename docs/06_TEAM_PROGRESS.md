@@ -71,3 +71,4 @@ Next task and owner:
 | Oct 22 | Use reported programming background and coursework when choosing foundations |
 | Oct 22 | Keep learning stages separate from academic eligibility and preserve state through profile edits |
 | Oct 22 | Retrieve source information automatically at runtime. Keep saved files as development references and prefer a temporary cache over a required course database |
+| Oct 22 | Aim for source checks when a student submits a request. Any content database must also refresh automatically on a configurable schedule, with freshness and failed checks visible |
