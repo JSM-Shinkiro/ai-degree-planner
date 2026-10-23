@@ -36,6 +36,33 @@ The PDF references are in [Program Requirements](https://drive.google.com/drive/
 | [UofA_Artificial_Intelligence_BS_2026-08-01.pdf](https://drive.google.com/file/d/1CZ-oHixNcnMDVZcmsa66W_lZGJGj9oMr/view?usp=drivesdk) | Bachelor's degree | program-AIBS-2026-08-01.pdf |
 | [UofA_Degree_Search_Snapshot_2026-10-22.pdf](https://drive.google.com/file/d/1aCwkNgI4jlni1EDCcctNpUyiZqXWc9ip/view?usp=drivesdk) | Degree search snapshot | Degree Search _ The University of Arizona.pdf |
 
+## Sample plans
+
+The supplied PDFs are saved in [Sample Plans](https://drive.google.com/drive/folders/1W2QnhMpHgNit3n3Fl63XXLXiImVPymjb). They describe advised sequences. Their headers identify the General Catalog as the source of official requirements and prerequisites.
+
+| File | Edition and sequence date | Original filename |
+| --- | --- | --- |
+| [UofA_Electrical_and_Computer_Engineering_BS_Sample_Plan_2026-2027.pdf](https://drive.google.com/file/d/1B4aV7UOiz-wHrLLg7LBhSgWKWBvugsjk/view?usp=drivesdk) | 2026–27, advised sequence as of January 2026 | ElectricalComputerEngineering26-27r.pdf |
+| [UofA_Computer_Science_and_Engineering_BS_Sample_Plan_2026-2027.pdf](https://drive.google.com/file/d/1TVnLeMgDOlRiN2-6rtZRCmT68_6t_tCk/view?usp=drivesdk) | 2026–27, advised sequence as of January 2026 | ComputerScienceEngineering26-27r.pdf |
+
+The ECE PDF contains the common foundation and separate Electrical and Computer option pages. The CSE PDF is a separate degree plan. See [ECE plan implementation notes](10_ECE_PLAN_IMPLEMENTATION_NOTES.md) for reviewed findings, official discovery links, and a proposed first template.
+
+## Reference screenshots
+
+Nine supplied screenshots are saved in [Reference Screenshots](https://drive.google.com/drive/folders/149X0r31sV-qzURd20wD6x7JKy3G7MMsH). These capture navigation and sample-plan layouts. Underlying catalog and program documents should supply application records wherever available.
+
+| File | Useful reference | Original filename |
+| --- | --- | --- |
+| [UofA_ECE_Catalog_CSV_Export_2026-10-23.png](https://drive.google.com/file/d/1ZTiRQrtqIBjaYAEUxqRd90pA9rhfwRNf/view?usp=drivesdk) | ECE course filter and CSV export control. | image(20261023-055856).png |
+| [UofA_Program_Search_Undergraduate_Filter_2026-10-23.png](https://drive.google.com/file/d/1uGG4ZuhpCL5vWb_dK_jFrcurRh3_mMxY/view?usp=drivesdk) | Undergraduate program search filters. | image(20261023-060029).png |
+| [UofA_Computing_Engineering_Program_Options_2026-10-23.png](https://drive.google.com/file/d/1DCD9tcs5QiofcU79PdumSFrtCz9Kehht/view?usp=drivesdk) | Distinct CSE, ECE, and related program entries. | image(20261023-060049).png |
+| [UofA_ECSE_Undergraduate_Resources_Menu_2026-10-23.png](https://drive.google.com/file/d/1OO2_NCeY2n11ierL7kXI-izl_Rn8KWzK/view?usp=drivesdk) | ECSE undergraduate degrees, courses, advising, and opportunities navigation. | image(20261023-060145).png |
+| [UofA_Computer_Science_Sample_Plan_2026_Years_1_2.png](https://drive.google.com/file/d/1-2MOMtIS3y8-b9lTILtGH1lGZ_FT8Dn4/view?usp=drivesdk) | Computer Science sample plan, semesters 1–4. | image(20261023-060427).png |
+| [UofA_Computer_Science_Sample_Plan_2026_Years_3_4.png](https://drive.google.com/file/d/1-BiMrdX_nwQCi4Igyi9YPpKsgvejss6k/view?usp=drivesdk) | Computer Science sample plan, semesters 5–8. | image(20261023-060433).png |
+| [UofA_Engineering_Four_Year_Plan_Directory_2026-2027.png](https://drive.google.com/file/d/1PMsDDenL2Lad1Fh1sUG5SHpm1PSH3CUS/view?usp=drivesdk) | Engineering plan directory with 2026–27 and 2025–26 download columns. | image(20261023-060827).png |
+| [UofA_Artificial_Intelligence_Sample_Plan_2026_Years_1_2.png](https://drive.google.com/file/d/1BmByLXgWdvq7zNCx6uvSsPoIt3a2qUlW/view?usp=drivesdk) | Artificial Intelligence sample plan, semesters 1–4, including unresolved course placeholders. | image(20261023-060926).png |
+| [UofA_Artificial_Intelligence_Sample_Plan_2026_Years_3_4.png](https://drive.google.com/file/d/1kHbAgrkOJdolSD7WOyewLA8jZXPywdJ1/view?usp=drivesdk) | Artificial Intelligence sample plan, semesters 5–8, including elective slots. | image(20261023-060936).png |
+
 ## Dates and later use
 
 - Program filenames retain the dates from the original filenames. The graduate certificate retains its 2027-01-01 date and graduate classification.
