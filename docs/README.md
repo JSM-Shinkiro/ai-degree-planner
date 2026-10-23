@@ -16,5 +16,6 @@ Team P07's ECE 425/525 project.
 | [Saved catalog sources](09_CATALOG_SOURCES.md) | Catalog links, course exports, program requirements, sample plans, and screenshots |
 | [ECE plan implementation notes](10_ECE_PLAN_IMPLEMENTATION_NOTES.md) | Reviewed sample-plan findings and a manageable ECE planning template |
 | [Gemini live verification](11_GEMINI_LIVE_VERIFICATION.md) | Working models, six live checks, measured timings, and answer-review findings |
+| [OpenRouter free-model notes](12_OPENROUTER_FREE_MODELS.md) | Free-only requirement, credential test, structured-output experiments, and integration status |
 
 The repository holds current code and documentation. Drive contains reference and submission copies.

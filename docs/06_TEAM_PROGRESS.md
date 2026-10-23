@@ -8,6 +8,8 @@ The refined prototype includes five real course summaries, two resources, a shor
 
 **The starter RAG pipeline passed live integration checks on October 23.** Both supplied credentials produced real embeddings. Keyword, semantic, and hybrid requests generated answers with valid record and citation references. Changed goals, completed-course filtering, and a clear unsupported-topic case also passed. Use `gemini-embedding-2` and the tested `gemini-3.5-flash-lite` generator. Keys are not stored in the repository. Live Adzuna requests remain unverified.
 
+An optional OpenRouter credential passed a free-model Hello World test with reported cost zero. Structured RAG experiments encountered a rate limit, an exhausted reasoning budget, and then an overly restrictive abstention. OpenRouter is not connected to the app; Gemini remains the working generator. Any future OpenRouter use is restricted to free models. See [free-model notes](12_OPENROUTER_FREE_MODELS.md).
+
 Four ECE academic rules remain unknown because the course entries expose internal requirement IDs. One CSC120 condition is reviewed from the current catalog program requirements. Course descriptions and credits were checked against official sources. Remaining rules and supporting records need review.
 
 Automatic source retrieval is a target requirement, not an implemented runtime feature. The app currently reads bundled records. The saved source files are development references. The intended runtime fetches official evidence as needed, with a temporary cache and no required permanent course database.
@@ -74,3 +76,4 @@ Next task and owner:
 | Oct 22 | Retrieve source information automatically at runtime. Keep saved files as development references and prefer a temporary cache over a required course database |
 | Oct 22 | Aim for source checks when a student submits a request. Any content database must also refresh automatically on a configurable schedule, with freshness and failed checks visible |
 | Oct 23 | Use `gemini-3.5-flash-lite` as the tested default generator. Larger Flash requests hit high demand; retain model configuration overrides |
+| Oct 23 | Use the supplied OpenRouter access only with free models and zero-price routing limits. Keep it as a development option until recommendation quality and reliability are verified |
