@@ -13,5 +13,6 @@ Team P07's ECE 425/525 project.
 | [Team progress](06_TEAM_PROGRESS.md) | Implemented work and open tasks |
 | [Prototype verification](07_PROTOTYPE_VERIFICATION.md) | Checks performed for the first implementation |
 | [Refinement notes](08_REFINEMENT_NOTES.md) | Review findings, implemented changes, and remaining live checks |
+| [Saved catalog sources](09_CATALOG_SOURCES.md) | Catalog links and the ECE, CSC, and SFWE CSV exports |
 
 The repository holds current code and documentation. Drive contains reference and submission copies.
