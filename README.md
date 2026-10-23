@@ -2,31 +2,80 @@
 
 **Team P07 | Fall 2026**
 
-An interactive learning and career advisor for prospective and current University of Arizona ECE students.
+An interactive learning and career advisor for prospective and current University of Arizona ECE students. The first prototype connects student interests with course evidence, complementary resources, and a configurable RAG pipeline.
 
-## Overview
+## Run locally
 
-The project helps students connect their academic background and career interests with university coursework, complementary courses, online learning resources, and job opportunities.
+Python 3.11 or newer is required. From the repository root:
 
-The core approach is **retrieval-augmented generation (RAG)**. The app retrieves relevant source records and uses them to generate personalized explanations with citations. Prerequisite checks run separately from the language model.
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements-dev.txt
+python -m streamlit run app.py
+```
 
-## Planned Features
+On Windows PowerShell, activate with `.\.venv\Scripts\Activate.ps1` instead.
 
-- Student profiles with academic standing, interests, completed courses, and experience.
-- Personalized learning roadmaps with prerequisite status and source links.
-- Relevant online courses and learning resources.
-- Available internships and jobs for supported career directions.
-- Saved progress and updated recommendations on return visits.
-- An interactive view of retrieved evidence and similarity scores.
+The app starts in **source exploration** mode without API keys. Choose a career direction, add completed courses, and select **Update my roadmap**. Download and restore a JSON profile to carry progress between sessions.
 
-## Initial Scope
+## Enable live RAG
 
-The first release focuses on **AI/ML and embedded systems**. Development starts with a small collection of verified courses and a complete retrieval, generation, and citation workflow.
+Copy `.env.example` to `.env` and set `GEMINI_API_KEY`. The example uses `gemini-embedding-2` and `gemini-3.8-flash`, subject to account availability. Model IDs are configurable. The sidebar also accepts a session-only key for local testing.
 
-## Status
+Precompute the index with:
 
-Planning is complete enough to begin development. Application implementation and setup instructions are pending.
+```bash
+python scripts/build_index.py
+```
 
-## Documentation
+Enable **Generate AI explanations**, then update the roadmap. Retrieved evidence is passed to the generator. Recommendation IDs and citations are validated before rendering.
 
-Project design notes and the implementation roadmap will be maintained in [docs/](docs/README.md).
+Source exploration is retrieval-only. It does not count as a completed live RAG demonstration.
+
+## Current features
+
+- Dark dashboard and student profile.
+- Programming foundations first for beginners, with later learning goals.
+- Five source-linked courses and two online resources.
+- Keyword, semantic, and hybrid retrieval.
+- Independent prerequisite evaluation.
+- Structured Gemini generation and citation checks.
+- Evidence inspector and ranking chart.
+- PCA projection and cosine drill-down when embeddings are available.
+- Versioned public-record embedding cache.
+- Profile export/import.
+- On-demand Adzuna search adapter with a short session cache.
+
+Job search requires `ADZUNA_APP_ID` and `ADZUNA_APP_KEY`. No listings are fabricated when the provider is unavailable.
+
+## Academic data
+
+The starter collection covers ECE101, ECE369A, ECE372A, ECE425, and CSC120 from the current 2026–2027 catalog. Summaries are paraphrased and linked to official entries.
+
+The public catalog returns internal enrollment requirement IDs. Their rules remain **unknown** until resolved and reviewed. The rule engine is tested with synthetic conditions, but this prototype does not establish enrollment eligibility.
+
+```bash
+python scripts/refresh_sources.py
+```
+
+This stages source metadata and hashes without modifying approved records.
+
+## Tests and evaluation
+
+```bash
+python -m pytest -q
+python scripts/evaluate.py --runs 20
+```
+
+Tests cover backend behavior and Streamlit interactions. Controlled providers test RAG integration without model requests. Live model and job calls need separate credentialed checks.
+
+The first clean installation passed 54 tests. See [prototype verification](docs/07_PROTOTYPE_VERIFICATION.md) for the checks performed and remaining limits.
+
+The evaluation script is a keyword-only smoke check, not a completed research benchmark.
+
+## Project documents
+
+Start with [the documentation index](docs/README.md) and [team progress](docs/06_TEAM_PROGRESS.md).
+
+Automatic account-based persistence, broader academic-rule coverage, the six sample-paper reviews, and the held-out evaluation remain in the roadmap.

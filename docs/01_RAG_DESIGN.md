@@ -1,0 +1,95 @@
+# RAG Design
+
+The advisor uses retrieval-augmented generation to explain recommendations using a maintained collection of course, resource, and career information. Updating that collection changes the evidence available to the model without retraining it.
+
+## Pipeline
+
+```mermaid
+flowchart TD
+    A["Student profile and question"] --> B["Query embedding"]
+    C["Reviewed course and resource index"] --> D["Semantic and keyword retrieval"]
+    B --> D
+    D --> E["Prerequisite checks and supporting records"]
+    E --> F["Selected evidence context"]
+    F --> G["Generated explanation"]
+    G --> H["Validated recommendations and citations"]
+    D --> I["Retrieval inspector"]
+```
+
+The first working version needs real retrieval, a real generation call using the retrieved evidence, and source links. A search screen alone is an intermediate step.
+
+## Preparing the collection
+
+1. Collect official source information and record its catalog edition and retrieval date.
+2. Normalize the record, preserving the original prerequisite wording.
+3. Review the description and academic rules.
+4. Split the content into evidence chunks with stable IDs, source links, and hashes.
+5. Embed each chunk separately and build the keyword index from the same text.
+6. Save a manifest linking vector rows to chunk IDs and the model configuration.
+
+Start with one chunk per short course description. Keep prerequisite conditions intact. Remove navigation and repeated footer text.
+
+Rebuild affected chunks when sources change. A different embedding model or incompatible configuration requires a new index.
+
+## Retrieval
+
+Start with semantic retrieval. Add BM25 and hybrid ranking after the first full RAG interaction works.
+
+| Setting | Initial choice |
+| --- | --- |
+| Embedding model | Gemini Embedding 2, subject to access testing |
+| Input | Text |
+| Dimensions | 768 |
+| Candidate pool | Up to 20 results per method |
+| Context | Up to eight chunks, with a 16,000-character evidence limit |
+| Display | Up to five next steps |
+| Hybrid ranking | Reciprocal Rank Fusion, constant 60 |
+| Generation | One call per submitted roadmap request |
+
+These are starting settings to evaluate.
+
+The initial implementation includes all three retrieval methods. Provider access and live answer quality remain to be verified. The context limit applies to evidence text, while profile lengths and generated output are bounded separately.
+
+Normalize vectors and use cosine similarity. For hybrid retrieval, combine ranks rather than adding raw BM25 and cosine values. RRF adds 1 / (60 + rank) for each list containing a chunk. Ranks start at one.
+
+For the planned embedding adapter, use the documented retrieval query/document formats and confirm that the returned vectors match the number of chunks. Keep model ID, dimensions, formatting, normalization, and chunk order in the index manifest.
+
+Deduplicate course cards when several chunks refer to the same course. Retrieve prerequisite evidence by exact identity from the full collection, even when it falls outside the relevance cutoff. Preserve alternatives in OR requirements.
+
+## Generation
+
+The model receives:
+
+- The student's goal and relevant background.
+- Selected course, resource, and career-mapping evidence.
+- Application-computed prerequisite results.
+- Allowed recommendation IDs and a defined response structure.
+
+The explanation should connect the evidence to the student's goal. It should distinguish a suggested learning connection from an explicit catalog fact.
+
+Every factual claim needs supporting evidence from the supplied context. Missing information should produce a limitation or focused clarification. Retrieved text is source material, not an instruction channel.
+
+The application supplies course titles, credits, prerequisite badges, and URLs from stored records. The model generates explanatory text. Citations resolve through stored evidence IDs.
+
+## Validation and failures
+
+Check that recommendation IDs were allowed, citation IDs were actually supplied, and every citation resolves to a known source. Keep generated output separate from application-owned academic status.
+
+These checks establish reference integrity. Whether a sentence follows from its source still needs evaluation.
+
+| Situation | App behavior |
+| --- | --- |
+| Evidence is insufficient | Explain the coverage limit or ask for clarification |
+| Academic information is missing or conflicting | Keep the affected condition unknown |
+| Embedding service fails | Offer a labeled keyword fallback where possible |
+| Generation fails | Retain source cards and rule results, with the explanation unavailable |
+| A citation or record ID is invalid | Reject the affected generated output |
+| Model and index do not match | Load a compatible index or rebuild |
+
+Keyword retrieval followed by generation is still RAG, but does not demonstrate the planned neural retrieval path. A retrieval-only fallback does not complete the first RAG milestone.
+
+## Inspection and timing
+
+Show the exact evidence passed to the model, retrieved ranks, similarity scores, and source excerpts. Use a fixed PCA projection for the embedding map and rank in the original vector space. Similarity is not a probability.
+
+Record data/model/prompt versions, selected evidence IDs, validation results, cache state, and timings for embedding, retrieval, generation, and the total request. Keep credentials and full personal histories out of routine logs.

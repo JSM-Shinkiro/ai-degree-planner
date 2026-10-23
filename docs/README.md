@@ -1,5 +1,16 @@
 # Project Documentation
 
-Design notes and the implementation roadmap for Team P07's ECE 425/525 project.
+Team P07's ECE 425/525 project.
 
-The first milestone is a working RAG flow using five verified course records, generated explanations, and source citations.
+| File | Contents |
+| --- | --- |
+| [Project overview](00_PROJECT_OVERVIEW.md) | Student experience and scope |
+| [RAG design](01_RAG_DESIGN.md) | Retrieval, context, generation, and citations |
+| [Technical design](02_TECHNICAL_DESIGN.md) | Data contracts, rules, and modules |
+| [Roadmap](03_PROJECT_ROADMAP.md) | Milestones through final submission |
+| [Testing and demo](04_TESTING_AND_DEMO.md) | Acceptance checks and evaluation |
+| [References](05_REFERENCES.md) | Course and technical sources |
+| [Team progress](06_TEAM_PROGRESS.md) | Implemented work and open tasks |
+| [Prototype verification](07_PROTOTYPE_VERIFICATION.md) | Checks performed for the first implementation |
+
+The repository holds current code and documentation. Drive contains reference and submission copies.
