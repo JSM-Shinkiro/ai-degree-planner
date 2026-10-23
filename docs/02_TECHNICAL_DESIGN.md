@@ -15,6 +15,16 @@
 
 Use one Python application. A separate frontend service and vector database are unnecessary for the initial collection. Model IDs are configurable and the tested top-level dependencies are pinned.
 
+## Automatic source retrieval target
+
+The deployed app should obtain academic information from official sources itself. Saved course exports, program PDFs, sample plans, and screenshots are development references and parser-validation examples. They are not a required production catalog database.
+
+Add source adapters that resolve official program and course links, fetch the required pages or documents, parse them into validated records, and supply evidence to RAG. Prefer supported public exports or documented APIs when available. Verify each access path before relying on it. Begin with ECE and a bounded number of source requests per interaction. An unrestricted web crawler is unnecessary.
+
+Keep source URLs, parser rules, and trusted domains in configuration. Build the active evidence index in memory and use a rebuildable cache for fetched content and embeddings. A permanent academic or vector database is optional. Query a job provider separately when the student requests opportunities.
+
+The current app still loads bundled JSON records. The existing source-refresh script fetches known course pages into a review report, but it does not yet provide automatic runtime discovery and retrieval.
+
 ## Code organization
 
 | Module | Responsibility |
@@ -89,6 +99,8 @@ Use configuration for providers, model IDs, dimensions, retrieval method, candid
 
 Cache index data by corpus and model configuration. Request caches include the relevant profile, query, prompt, model, and data versions. Updating completed coursework invalidates dependent recommendations.
 
-Session State supports the current interaction. The final hosted pilot needs durable profiles associated with authenticated users. Choose the hosting, sign-in, and database path after the local baseline works.
+For runtime source retrieval, key fetched content by canonical URL and catalog edition, and keep retrieval time, hash, validation state, and a source-specific expiry. Refresh missing or expired entries and rebuild affected evidence when the content changes. Provide an explicit refresh action and label stale results if the source is unavailable. Choose and measure cache lifetimes during connector testing.
+
+Session State supports the current interaction. Profile export/import can preserve progress without a server database. Account-based return visits would need separate durable profile storage. Choose that hosting and sign-in path after the local baseline works. Profile storage does not require a permanent course database.
 
 Job results contain provider/query metadata, retrieval time, listing IDs, titles, employers, locations, original application links, available posting dates, and descriptions as supplied. Distinguish snippets from full descriptions. Start with a roughly 20-minute cache, subject to provider terms.

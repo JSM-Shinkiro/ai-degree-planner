@@ -9,7 +9,7 @@ We are building an interactive website that helps prospective and current UofA E
 
 The experience adapts to the student. An incoming student starts with interests and possible career goals. A current student adds completed courses and projects. Returning students update their progress and receive revised recommendations.
 
-The first release focuses on **AI/ML and embedded systems**. We can import a larger course catalog through the same pipeline, while reviewing career mappings and prerequisite rules for these two directions first.
+The first release focuses on **AI/ML and embedded systems**. The target is automatic retrieval from official sources, beginning with ECE. Saved PDFs, CSV exports, and screenshots are development references and validation examples. They should not become a manually maintained catalog that the deployed app depends on.
 
 ## Core features
 
@@ -26,6 +26,8 @@ Use a simple dark interface with **My Profile**, **My Roadmap**, and **Opportuni
 ## Role of RAG
 
 Retrieval-augmented generation is the main deep learning component. The app retrieves relevant records, passes them to a language model, and generates a personalized explanation using those records. Source links make the reasoning easier to inspect.
+
+Fetch the relevant source material when needed and reuse a temporary cache while it is fresh. A permanent course or vector database is optional. The current prototype uses a bundled collection while runtime source retrieval is developed.
 
 Prerequisite checks run separately in Python. Generated explanations use those results and cannot change them. Requirements can be satisfied, unsatisfied, or unknown.
 

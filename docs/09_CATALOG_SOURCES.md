@@ -1,6 +1,6 @@
 # Catalog and Program Sources
 
-Reference files for later catalog expansion and RAG source preparation. Program titles and degree levels were checked inside the PDFs. Original file contents are preserved.
+Development references for source discovery, parser validation, and RAG evaluation. The deployed app should retrieve official information itself rather than depend on manually uploaded copies. A temporary content cache is acceptable, and a permanent course database is optional. Program titles and degree levels were checked inside the PDFs. Original file contents are preserved.
 
 ## Catalog links
 
@@ -70,4 +70,4 @@ Nine supplied screenshots are saved in [Reference Screenshots](https://drive.goo
 - Course filenames retain the 2026-10-23 export date. Their CSV columns do not explicitly identify a catalog edition.
 - Preserve course IDs and catalog numbers as text, including leading zeros and suffixes.
 - Enrollment requirement values can be internal reference IDs. Resolve their meaning before treating them as academic conditions.
-- These files are archived inputs for the next data import. Approved application records are maintained separately.
+- These files are archived development references and validation examples. Runtime source retrieval is the target. The current prototype still uses a separate bundled collection while that feature is developed.

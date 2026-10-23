@@ -4,9 +4,15 @@ Team P07 · Reference review: October 22, 2026, Arizona time
 
 These notes record useful sources and a possible next step. The sample plans have not been imported into the application.
 
+## Source retrieval requirement
+
+All saved PDFs, CSV exports, and screenshots are development references. The target app retrieves the relevant official information itself. Use these copies to understand source formats and check parser output, without requiring students or developers to maintain an uploaded course database.
+
+Fetch the appropriate program plan and course entries on demand, respecting catalog year and delivery mode. Reuse a temporary cache and build the RAG index in memory. Show source links and retrieval dates, refresh expired information, and make source failures visible. Stored student progress is a separate concern. Automatic runtime source retrieval is still pending in the current prototype.
+
 ## Start with one ECE catalog year
 
-Use the supplied **2026–27 B.S. in Electrical and Computer Engineering sample plan** as the first planning template. It has a shared foundation on page 1, an Electrical option on page 2, and a Computer option on page 3. The advised sequence is dated January 2026.
+Use the supplied **2026–27 B.S. in Electrical and Computer Engineering sample plan** to develop and verify the first automatic plan parser. It has a shared foundation on page 1, an Electrical option on page 2, and a Computer option on page 3. The advised sequence is dated January 2026. The deployed app should obtain the applicable plan from its official source.
 
 The initial experience could ask for catalog year, completed courses, current enrollment, starting math placement, and Electrical, Computer, or Undecided option. Keep career interests such as AI/ML and embedded systems separate from the degree option. They can guide elective and outside learning suggestions while the ECE core stays tied to the selected program.
 
@@ -57,8 +63,8 @@ The sample-plan headers direct students to the General Catalog for official requ
 
 ## A manageable next step
 
-1. Transcribe the ECE foundation and both options into one small, reviewed template. Link every row to its PDF page and keep unresolved choices visible.
-2. Join named ECE courses to the saved course export. Flag missing courses, conflicting units, and unresolved requirement references for review.
+1. Verify an official download path for the ECE plan, then build a parser for its foundation and both options. Check the parsed rows against the saved PDF. Keep source pages and unresolved choices with each result.
+2. Resolve named ECE courses through the official catalog and fetch their entries automatically. Use the saved course export to check extraction. Flag missing courses, conflicting units, and unresolved requirement references for review.
 3. Show the selected template with completed and in-progress courses marked. Let students inspect remaining requirements and suggested next courses. Avoid promising a personalized graduation date.
 4. Review a small set of prerequisite cases before labeling eligibility. Include alternatives, concurrent enrollment, minimum grades, and unknown Advanced Standing.
 5. Retrieve the relevant course, requirement group, and plan entry through RAG. Use the model to explain recommendations with citations. Keep academic rule checks in deterministic code and preserve the existing unknown state when evidence is incomplete.

@@ -1,13 +1,16 @@
 # RAG Design
 
-The advisor uses retrieval-augmented generation to explain recommendations using a maintained collection of course, resource, and career information. Updating that collection changes the evidence available to the model without retraining it.
+The advisor uses retrieval-augmented generation to explain recommendations using evidence retrieved from official academic sources and relevant learning and career sources. The target is automatic source retrieval with a temporary cache, without requiring a manually maintained course database. Updating the retrieved evidence changes the information available to the model without retraining it.
+
+The current prototype reads a bundled, reviewed collection. Runtime source retrieval is planned work. Saved reference files support development and verification rather than supplying the deployed app's only source of information.
 
 ## Pipeline
 
 ```mermaid
 flowchart TD
     A["Student profile and question"] --> B["Query embedding"]
-    C["Reviewed course and resource index"] --> D["Semantic and keyword retrieval"]
+    S["Official pages, documents, and supported APIs"] --> C["Automatic fetching and temporary evidence index"]
+    C --> D["Semantic and keyword retrieval"]
     B --> D
     D --> E["Prerequisite checks and supporting records"]
     E --> F["Selected evidence context"]
@@ -18,14 +21,24 @@ flowchart TD
 
 The first working version needs real retrieval, a real generation call using the retrieved evidence, and source links. A search screen alone is an intermediate step.
 
-## Preparing the collection
+## Obtaining source material
+
+Resolve the student's program, catalog edition, and requested topic before fetching. Start with a small configured set of official sources. Discover linked course entries and sample plans through supported public pages, exports, or documented APIs where available. Source access and parsing must be verified for each connector. Do not assume a search result or page footer contains the requested information.
+
+Fetch missing or expired material, extract the relevant fields and passages, and validate source identity and edition. Build evidence chunks and an in-memory index for the bounded candidate set. Cache source content and embeddings to limit repeated requests. RAG requires retrievable evidence during the request, not a permanent vector database.
+
+Keep the source URL, page or section, retrieval time, content hash, and validation state with each chunk. A changed hash invalidates dependent embeddings and answers. Current retrieval must respect a student's catalog edition rather than silently switching them to the newest degree requirements.
+
+If retrieval fails, label any cached evidence with its last successful retrieval time or report that the information is unavailable. Do not present a saved development file as newly retrieved information. Unresolved academic conditions stay unknown even when the descriptive page was fetched successfully.
+
+## Preparing the active collection
 
 1. Collect official source information and record its catalog edition and retrieval date.
 2. Normalize the record, preserving the original prerequisite wording.
-3. Review the description and academic rules.
+3. Validate extracted descriptions and keep academic rules unknown until their interpretation is supported. Changed or unsupported rule formats need review.
 4. Split the content into evidence chunks with stable IDs, source links, and hashes.
 5. Embed each chunk separately and build the keyword index from the same text.
-6. Save a manifest linking vector rows to chunk IDs and the model configuration.
+6. Keep a manifest linking vector rows to chunk IDs and the model configuration, in memory or in a rebuildable cache.
 
 Start with one chunk per short course description. Keep prerequisite conditions intact. Remove navigation and repeated footer text.
 

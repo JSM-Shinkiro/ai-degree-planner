@@ -73,6 +73,8 @@ Job search requires `ADZUNA_APP_ID` and `ADZUNA_APP_KEY`. No listings are fabric
 
 ## Academic data
 
+The development target is automatic retrieval from official academic sources, with source links, retrieval dates, and a temporary cache. Saved PDFs, CSV exports, and screenshots are development references. A permanent course database is optional. The current prototype still uses the bundled collection described below. See [RAG source retrieval](docs/01_RAG_DESIGN.md#obtaining-source-material) for the planned flow.
+
 The starter collection covers ECE101, ECE369A, ECE372A, ECE425, and CSC120 from the current 2026–2027 catalog. Summaries are paraphrased and linked to official entries.
 
 The public course entries return internal enrollment requirement IDs. Four ECE rules remain **unknown**. One CSC120 condition is reviewed against the current Computer Science program requirements, with its source linked in the app. Recorded prerequisite satisfaction does not establish complete enrollment eligibility.

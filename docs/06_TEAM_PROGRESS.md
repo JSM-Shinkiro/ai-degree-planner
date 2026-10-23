@@ -10,6 +10,8 @@ The refined prototype includes five real course summaries, two resources, a shor
 
 Four ECE academic rules remain unknown because the course entries expose internal requirement IDs. One CSC120 condition is reviewed from the current catalog program requirements. Course descriptions and credits were checked against official sources. Remaining rules and supporting records need review.
 
+Automatic source retrieval is a target requirement, not an implemented runtime feature. The app currently reads bundled records. The saved source files are development references. The intended runtime fetches official evidence as needed, with a temporary cache and no required permanent course database.
+
 ## Milestones
 
 | Milestone | Owner | Status | Evidence / next step |
@@ -20,7 +22,7 @@ Four ECE academic rules remain unknown because the course entries expose interna
 | M3: Midpoint submission | Team | Open | Report, screenshots, narrated video |
 | M4: Returning students | To assign | Partial | Portable files work. Hosted authentication/storage remain |
 | M5: Opportunities | To assign | Partial | Adapter and interface implemented. Confirm credentials and results |
-| M6: Coverage and updates | To assign | Partial | Five-source review importer works. Expand and review changed fields |
+| M6: Coverage and updates | To assign | Partial | Five-source review importer works. Add runtime source retrieval, edition checks, and freshness/failure handling |
 | M7: Final evaluation | Team | Open | Held-out cases, student pilot, presentation |
 
 ## Verification
@@ -68,3 +70,4 @@ Next task and owner:
 | Oct 22 | Use portable profile files before hosted accounts |
 | Oct 22 | Use reported programming background and coursework when choosing foundations |
 | Oct 22 | Keep learning stages separate from academic eligibility and preserve state through profile edits |
+| Oct 22 | Retrieve source information automatically at runtime. Keep saved files as development references and prefer a temporary cache over a required course database |
