@@ -9,6 +9,8 @@ An inspectable retrieval-augmented generation (RAG) advisor for prospective and 
 Python 3.11 or newer is required. From the repository root:
 
 ```bash
+git clone https://github.com/JSM-Shinkiro/ai-degree-planner.git
+cd ai-degree-planner
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements-dev.txt
@@ -96,7 +98,7 @@ python -m pytest -q
 python scripts/evaluate.py --runs 20
 ```
 
-Tests cover backend behavior and Streamlit interactions. Controlled providers test RAG integration without model requests. Six additional live Gemini checks passed on October 23; live Adzuna checks remain pending.
+Tests cover backend behavior and Streamlit interactions. Controlled providers test RAG integration without model requests. The October 23 integration checks included five generated answers plus an unsupported-topic guard that made no provider calls; live Adzuna checks remain pending.
 
 The refinement includes regression tests for the review findings. See [prototype verification](docs/07_PROTOTYPE_VERIFICATION.md) and [refinement notes](docs/08_REFINEMENT_NOTES.md) for checks and remaining limits.
 
@@ -108,4 +110,4 @@ The evaluation script is a keyword-only smoke check, not a completed research be
 
 Start with [the documentation index](docs/README.md) and [team progress](docs/06_TEAM_PROGRESS.md).
 
-Automatic account-based persistence, broader academic-rule coverage, the six sample-paper reviews, and the held-out evaluation remain in the roadmap.
+Complete the required six sample-paper and corresponding tool/video reviews before the midproject submission. Broader academic-rule coverage, account-based persistence, and the held-out evaluation remain in the roadmap.
