@@ -1,8 +1,8 @@
-# ECE 425/525 Project
+# ECE Learning Advisor
 
 **Team P07 | Fall 2026**
 
-An interactive learning and career advisor for prospective and current University of Arizona ECE students. The first prototype connects student interests with course evidence, complementary resources, and a configurable RAG pipeline.
+An inspectable retrieval-augmented generation (RAG) advisor for prospective and current University of Arizona ECE students. The first prototype connects student interests with course evidence, complementary resources, and a configurable RAG pipeline.
 
 ## Run locally
 
@@ -103,6 +103,8 @@ The refinement includes regression tests for the review findings. See [prototype
 The evaluation script is a keyword-only smoke check, not a completed research benchmark.
 
 ## Project documents
+
+**Report title:** ECE Learning Advisor: An Inspectable RAG System.
 
 Start with [the documentation index](docs/README.md) and [team progress](docs/06_TEAM_PROGRESS.md).
 
