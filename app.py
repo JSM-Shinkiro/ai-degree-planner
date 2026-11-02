@@ -172,7 +172,7 @@ if st.session_state.pop("refresh_pending",False):
         except (ValueError,OSError):
             st.error("The plan could not be updated. Check the configuration and submit your profile again.")
 
-st.caption("ECE LEARNING & CAREER ADVISOR")
+st.caption("ECE LEARNING ADVISOR")
 st.title("Your next step, with a path forward.")
 st.caption("Learning suggestions for UofA ECE students. Stages describe preparation, not guaranteed enrollment or semester placement.")
 roadmap, collection, opportunities = st.tabs(["My Roadmap","Courses & Resources","Opportunities"])
